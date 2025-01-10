@@ -13,8 +13,6 @@ CREATE TABLE Geographical_location (
     ITN_Coverage DECIMAL(5, 2),
     Reported_Cases INT(11)
 );
-
--- Create table for supply chain
 CREATE TABLE supply_chain (
     Supply_ID INT(11) PRIMARY KEY,
     Resource_ID INT(11),
@@ -28,8 +26,6 @@ CREATE TABLE supply_chain (
     FOREIGN KEY (Resource_ID) REFERENCES resource(Resource_ID),
     FOREIGN KEY (Facility_ID) REFERENCES health_facility(Facility_ID)
 );
-
--- Create table for resource
 CREATE TABLE resource (
     Resource_ID INT(11) PRIMARY KEY,
     Facility_ID INT(11),
@@ -41,8 +37,6 @@ CREATE TABLE resource (
     Update_Date DATE,
     FOREIGN KEY (Facility_ID) REFERENCES health_facility(Facility_ID)
 );
-
--- Create table for treatment
 CREATE TABLE treatment (
     Treatment_ID INT(11) PRIMARY KEY,
     Treatment_Name VARCHAR(255),
@@ -52,8 +46,6 @@ CREATE TABLE treatment (
     Date_Added DATE,
     Update_Date DATE
 );
-
--- Create table for malaria types
 CREATE TABLE malaria_type (
     Type_ID INT(11) PRIMARY KEY,
     Type_Name VARCHAR(100),
@@ -62,8 +54,6 @@ CREATE TABLE malaria_type (
     Added_By INT(11),
     Update_Date DATE
 );
-
--- Create table for users
 CREATE TABLE user (
     User_ID INT(11) PRIMARY KEY,
     First_Name VARCHAR(50),
@@ -76,8 +66,6 @@ CREATE TABLE user (
     FOREIGN KEY (Role_ID) REFERENCES user_role(Role_ID),
     FOREIGN KEY (Facility_ID) REFERENCES health_facility(Facility_ID)
 );
-
--- Create table for epidemiological data
 CREATE TABLE epidemiological_data (
     Data_ID INT(11) PRIMARY KEY,
     Location_ID INT(11),
@@ -89,8 +77,6 @@ CREATE TABLE epidemiological_data (
     Added_By INT(11),
     FOREIGN KEY (Location_ID) REFERENCES geographical_location(Location_ID)
 );
-
--- Create table for training records
 CREATE TABLE training (
     Training_ID INT(11) PRIMARY KEY,
     User_ID INT(11),
@@ -99,8 +85,6 @@ CREATE TABLE training (
     Completion_Status VARCHAR(50),
     FOREIGN KEY (User_ID) REFERENCES user(User_ID)
 );
-
--- Create table for treatment outcomes
 CREATE TABLE treatment_outcome (
     Outcome_ID INT(11) PRIMARY KEY,
     Outcome_Name VARCHAR(100),
@@ -109,8 +93,6 @@ CREATE TABLE treatment_outcome (
     Added_By INT(11),
     Update_Date DATE
 );
-
--- Create table for visit records
 CREATE TABLE visit_record (
     Visit_ID INT(11) PRIMARY KEY,
     Patient_ID INT(11),
@@ -122,8 +104,6 @@ CREATE TABLE visit_record (
     FOREIGN KEY (Patient_ID) REFERENCES patient_data(Patient_ID),
     FOREIGN KEY (Facility_ID) REFERENCES health_facility(Facility_ID)
 );
-
--- Create table for patient data
 CREATE TABLE patient_data (
     Patient_ID INT(11) PRIMARY KEY,
     First_Name VARCHAR(50),
@@ -137,8 +117,6 @@ CREATE TABLE patient_data (
     Update_Date DATE,
     FOREIGN KEY (Location_ID) REFERENCES geographical_location(Location_ID)
 );
-
--- Create table for laboratory tests
 CREATE TABLE laboratory_tests (
     Test_ID INT(11) PRIMARY KEY,
     Case_ID INT(11),
@@ -149,8 +127,6 @@ CREATE TABLE laboratory_tests (
     FOREIGN KEY (Case_ID) REFERENCES malaria_cases(Case_ID),
     FOREIGN KEY (Technician_ID) REFERENCES user(User_ID)
 );
-
--- Create table for health facilities
 CREATE TABLE health_facility (
     Facility_ID INT(11) PRIMARY KEY,
     Facility_Name VARCHAR(100),
@@ -163,8 +139,6 @@ CREATE TABLE health_facility (
     FOREIGN KEY (Location_ID) REFERENCES geographical_location(Location_ID),
     FOREIGN KEY (Facility_Type) REFERENCES facility_type(Facility_Type_ID)
 );
-
--- Create table for interventions
 CREATE TABLE interventions (
     Intervention_ID INT(11) PRIMARY KEY,
     Type VARCHAR(50),
@@ -174,8 +148,6 @@ CREATE TABLE interventions (
     Outcome VARCHAR(50),
     FOREIGN KEY (Location_ID) REFERENCES geographical_location(Location_ID)
 );
-
--- Create table for facility types
 CREATE TABLE facility_type (
     Facility_Type_ID INT(11) PRIMARY KEY,
     Name VARCHAR(50),
@@ -183,16 +155,12 @@ CREATE TABLE facility_type (
     Date_Added DATE,
     Date_Updated DATE
 );
-
--- Create table for malaria cases by region
 CREATE TABLE malaria_cases_by_region (
     Region_ID INT(11) PRIMARY KEY,
     Location_ID INT(11),
     Reported_Cases INT(11),
     FOREIGN KEY (Location_ID) REFERENCES geographical_location(Location_ID)
 );
-
--- Create table for system logs
 CREATE TABLE system_log (
     Log_ID INT(11) PRIMARY KEY,
     User_ID INT(11),
@@ -203,8 +171,6 @@ CREATE TABLE system_log (
     Date_Added DATE,
     FOREIGN KEY (User_ID) REFERENCES user(User_ID)
 );
-
--- Create table for referrals
 CREATE TABLE referral (
     Referral_ID INT(11) PRIMARY KEY,
     Case_ID INT(11),
@@ -224,8 +190,6 @@ CREATE TABLE referral (
     FOREIGN KEY (Treatment_ID) REFERENCES treatment(Treatment_ID),
     FOREIGN KEY (Outcome_ID) REFERENCES treatment_outcome(Outcome_ID)
 );
-
--- Create table for user roles
 CREATE TABLE user_role (
     Role_ID INT(11) PRIMARY KEY,
     Role_Name VARCHAR(50),
